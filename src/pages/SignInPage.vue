@@ -41,18 +41,19 @@
           />
         </template>
       </q-input>
-    </q-form>
 
-    <q-card-section>
       <q-btn
         color="secondary"
         rounded
         size="md"
         label="Sign in"
         no-caps
-        class="full-width rounded-lg"
+        type="submit"
+        class="full-width mt-4 rounded-lg"
       />
-    </q-card-section>
+    </q-form>
+
+    <q-card-section> </q-card-section>
     <q-card-section class="text-center q-pt-none">
       <div class="text-grey-8">
         Don't have an account yet?

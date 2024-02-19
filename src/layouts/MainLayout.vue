@@ -1,42 +1,58 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
+  <q-layout class="" view="lhh lpR lFf">
     <q-drawer
-      v-model="leftDrawerOpen"
       show-if-above
-      bordered
+      side="left"
+      behavior="desktop"
+      width="200"
+      class="bg-primary overflow-hidden"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+      <div class="flex flex-col p-4 items-center h-full justify-between">
+        <div class="flex w-full p-4 flex-col gap-5">
+          <img
+            class="self-center w-[100px]"
+            src="../assets/svg/logo.svg"
+            alt=""
+          />
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+          <a href="/" class="flex text-white self-center items-center gap-2">
+            <q-icon name="home" />
+            <p class="text-md">Home</p>
+          </a>
+
+          <a
+            href="/routines"
+            class="flex text-white self-center items-center gap-2"
+          >
+            <q-icon name="assignment" />
+            <p class="text-md">Routines</p>
+          </a>
+
+          <a
+            href="/exercises"
+            class="flex text-white self-center items-center gap-2"
+          >
+            <q-icon name="fitness_center" />
+            <p class="text-md">Exercises</p>
+          </a>
+        </div>
+
+        <q-separator color="white" inset />
+
+        <div class="flex">
+          <div class="flex items-center gap-2">
+            <img
+              class="rounded-full w-8 h-8"
+              src="../assets/svg/blankAvatar.svg"
+            />
+            <p class="text-white text-sm">
+              {{ userName }}
+            </p>
+          </div>
+
+          <q-btn icon="logout" flat color="secondary" />
+        </div>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -44,73 +60,11 @@
     </q-page-container>
   </q-layout>
 </template>
+<script setup>
+import { LocalStorage } from "quasar";
+import { USER_USERNAME } from "src/variables/LocalStorage";
 
-<script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+const userName = LocalStorage.getItem(USER_USERNAME);
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+console.log(userName);
 </script>
